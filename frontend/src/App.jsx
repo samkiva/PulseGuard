@@ -139,7 +139,7 @@ const handleInstallClick = () => {
       }
     }
   };
-
+  
     try {
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
@@ -156,13 +156,6 @@ const handleInstallClick = () => {
     }
   };
 
-  {/* Install Button (Top Right - Pulse animation to draw attention) */}
-      <button onClick={onInstall} className="absolute top-6 right-6 flex items-center gap-2 bg-blue-600/20 hover:bg-blue-600/40 text-blue-100 px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-medium z-50 border border-blue-500/30 shadow-lg animate-pulse">
-        <Download size={16} /> 
-        <span className="hidden sm:inline">Install App</span>
-        <span className="sm:hidden">Install</span>
-      </button>
-      
   const handleBiometric = () => {
     setBioScanning(true);
     setTimeout(() => {
