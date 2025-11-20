@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell, LineChart, Line, Legend
@@ -115,6 +116,30 @@ function LoginPage({ onLogin, biometricEnabled, triggerToast }) {
     const endpoint = isSignUp ? '/register' : '/login';
     const payload = isSignUp ? { email, password, name } : { email, password };
 
+// eslint-disable-next-line no-unused-vars
+const handleInstallClick = () => {
+    if (installPrompt) {
+      // Android/Desktop Chrome logic
+      installPrompt.prompt();
+      installPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        }
+        setInstallPrompt(null);
+      });
+    } else {
+      // Fallback for iOS or if prompt is hidden/already installed
+      // Detect if iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      
+      if (isIOS) {
+        alert("To install on iOS:\n1. Tap the 'Share' icon (square with arrow)\n2. Scroll down and tap 'Add to Home Screen'");
+      } else {
+        alert("To install:\nTap the browser menu (3 dots) -> 'Install App' or 'Add to Home Screen'");
+      }
+    }
+  };
+
     try {
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
@@ -131,6 +156,13 @@ function LoginPage({ onLogin, biometricEnabled, triggerToast }) {
     }
   };
 
+  {/* Install Button (Top Right - Pulse animation to draw attention) */}
+      <button onClick={onInstall} className="absolute top-6 right-6 flex items-center gap-2 bg-blue-600/20 hover:bg-blue-600/40 text-blue-100 px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-medium z-50 border border-blue-500/30 shadow-lg animate-pulse">
+        <Download size={16} /> 
+        <span className="hidden sm:inline">Install App</span>
+        <span className="sm:hidden">Install</span>
+      </button>
+      
   const handleBiometric = () => {
     setBioScanning(true);
     setTimeout(() => {

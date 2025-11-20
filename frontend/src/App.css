@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Optional: Add a background color to test immediately */
+body {
+  background-color: #f8fafc; /* Light blue-grey */
+}
+/* Optional: Add some padding to the container */
+.container {
+  padding: 2rem;
+}
+/* Optional: Style headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #1e293b; /* Dark blue-grey */
+  margin-bottom: 1rem;
+}
+/* Optional: Style paragraphs */
+p {
+  color: #334155; /* Medium blue-grey */
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+/* Optional: Style buttons */
+button {
+  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+}
