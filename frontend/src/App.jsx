@@ -8,6 +8,7 @@ import {
   ChevronRight, Search, Lock, Mail, Smartphone, Loader2, 
   Plus, X, Moon, Sun, Fingerprint, MessageSquare, Send
 } from 'lucide-react';
+import { NativeBiometric } from '@capacitor-community/native-biometric';
 
 // --- CONFIGURATION ---
 const API_URL = "https://pulseguard-api.onrender.com"; // Replace with your backend URL
@@ -131,13 +132,34 @@ function LoginPage({ onLogin, biometricEnabled, triggerToast }) {
     }
   };
 
-  const handleBiometric = () => {
-    setBioScanning(true);
-    setTimeout(() => {
-      setBioScanning(false);
-      onLogin("Biometric User");
-    }, 2000);
-  };
+
+
+// ... inside component
+const handleBiometric = async () => {
+  setBioScanning(true);
+  try {
+    const result = await NativeBiometric.isAvailable();
+    if(!result.isAvailable) {
+      triggerToast("Biometrics not available", "error");
+      return;
+    }
+
+    const verified = await NativeBiometric.verifyIdentity({
+      reason: "For easy log in",
+      title: "Log in",
+      subtitle: "Please use FaceID or Fingerprint",
+      description: "Mounting security check"
+    });
+
+    if (verified) {
+        onLogin("Biometric User");
+    }
+  } catch {
+    triggerToast("Biometric authentication failed", "error");
+  } finally {
+    setBioScanning(false);
+  }
+};
 
   return (
     <div className="w-screen h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-slate-950 to-slate-900">
