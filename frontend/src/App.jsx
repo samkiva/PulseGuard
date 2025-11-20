@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell, LineChart, Line, Legend
@@ -116,30 +115,6 @@ function LoginPage({ onLogin, biometricEnabled, triggerToast }) {
     const endpoint = isSignUp ? '/register' : '/login';
     const payload = isSignUp ? { email, password, name } : { email, password };
 
-// eslint-disable-next-line no-unused-vars
-const handleInstallClick = () => {
-    if (installPrompt) {
-      // Android/Desktop Chrome logic
-      installPrompt.prompt();
-      installPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-        }
-        setInstallPrompt(null);
-      });
-    } else {
-      // Fallback for iOS or if prompt is hidden/already installed
-      // Detect if iOS
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      
-      if (isIOS) {
-        alert("To install on iOS:\n1. Tap the 'Share' icon (square with arrow)\n2. Scroll down and tap 'Add to Home Screen'");
-      } else {
-        alert("To install:\nTap the browser menu (3 dots) -> 'Install App' or 'Add to Home Screen'");
-      }
-    }
-  };
-  
     try {
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
