@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
-const API_URL = "http://192.168.0.102:8000"; 
+const API_URL = "https://pulseguard-api.onrender.com"; // Replace with your backend URL
 
 function App() {
   // --- GLOBAL STATE ---
