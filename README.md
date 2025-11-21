@@ -1,4 +1,4 @@
-PulseGuard AI: Intelligent Health Monitoring System 🛡️💓
+PULSEGUARD AI: INTELLIGENT HEALTH MONITORING SYSTEM 🛡️💓
 
 "Saving lives through real-time, context-aware biometric analysis."
 
@@ -154,3 +154,4 @@ Open a Pull Request
 
 License: MIT License
 Author: Samuel Kivairu
+
